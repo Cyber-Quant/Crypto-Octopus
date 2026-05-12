@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Crypto-Octopus"
+version = "0.0.1"
+requires-python = ">=3.10"
+dependencies = [
+  "duckdb",
+  "tqdm"
+]
