@@ -12,6 +12,8 @@ import hashlib
 import requests
 import argparse
 import urllib3
+import random
+import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from tqdm import tqdm
@@ -130,6 +132,7 @@ def download_single(pair: str, period: str, date_str: str, mode: str = "daily") 
 
     if verify_checksum(zip_path, chk_path):
         print(f"✅ 完成: {zip_path.name}")
+        time.sleep(random.uniform(3, 12))
         return True
     else:
         print(f"❌ 校验失败: {zip_path.name}")
