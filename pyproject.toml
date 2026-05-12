@@ -10,3 +10,14 @@ dependencies = [
   "duckdb",
   "tqdm"
 ]
+
+[tool.setuptools]
+py-modules = [
+    "config",
+    "init_db",
+    "init_table",
+    "insert_batch",
+    "query",
+    "download_data",
+    "update"
+]
