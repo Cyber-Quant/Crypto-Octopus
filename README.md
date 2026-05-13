@@ -1,4 +1,5 @@
 ========================================
+
 Crypto-Octopus - 使用文档
 ========================================
 
@@ -8,6 +9,7 @@ Crypto-Octopus/
   ├── init_db.py          # 初始化数据库
   ├── init_table.py       # 创建数据表（仅 1m、1d）
   ├── insert_batch.py     # 批量数据导入工具
+  ├── config.py           # 各种配置，支持交易对，下载配置
   ├── download_data.py    # 币安K线数据下载工具（新增）
   ├── update.py           # 全自动数据更新/补全/入库（新增）
   ├── query.py            # 命令行查询 + 内部API
@@ -16,6 +18,7 @@ Crypto-Octopus/
 ```
 
 ========================================
+
 一、环境安装
 ========================================
 
@@ -41,8 +44,10 @@ pip install -e .
 ```
 
 ========================================
+
 二、数据库初始化
 ========================================
+
 
 1. 初始化数据库文件
 ```
@@ -76,6 +81,7 @@ python init_table.py
 
 
 ========================================
+
 三、批量插入数据（insert_batch.py）
 ========================================
 
@@ -102,6 +108,7 @@ python insert_batch.py ./data
 
 
 ========================================
+
 四、数据下载工具（download_data.py）
 ========================================
 
@@ -136,6 +143,7 @@ download_batch(trade_pairs, periods, date_str, mode="daily")
 
 
 ========================================
+
 五、全自动数据更新/补全/入库（update.py）
 ========================================
 
@@ -144,17 +152,17 @@ download_batch(trade_pairs, periods, date_str, mode="daily")
 
 运行方式：
 # 日常更新（补全昨天之前的所有缺失数据）
-```
+```python
 python update.py
 ```
 
 # 仅更新指定交易对
-```
+```python
 python update.py -tp BTCUSDT -tp ETHUSDT
 ```
 
 # 往前回填 2 个月历史数据
-```
+```python
 python update.py -b 2
 ```
 
@@ -173,6 +181,7 @@ python update.py -b 2
 
 
 ========================================
+
 六、命令行查询（query.py）
 ========================================
 
@@ -196,17 +205,19 @@ python update.py -b 2
 -c / --csv         导出CSV
 
 示例：
+```python
 python query.py -p 1m
 python query.py -p 3m
 python query.py -p 1h
 python query.py -p 4h
 python query.py -p 1d
 python query.py -p 1w
-
 python query.py -p 1h -s 2026-01-01 -n 50 -tp BTCUSDT
+```
 
 
 ========================================
+
 七、Python API 内部调用（给代码使用）
 ========================================
 直接在你的策略/脚本中调用。
@@ -243,19 +254,20 @@ klines = data["BTCUSDT"]
 ```
 
 ========================================
+
 八、常见问题
 ========================================
 
 1. 数据库不存在
 先运行：
-```
+```python
 python init_db.py
 python init_table.py
 ```
 
 3. 插入数据失败
 把所有 ZIP + checksum 文件放在 ./data 目录，再运行
-```
+```python
 python insert_batch.py ./data
 ```
 
