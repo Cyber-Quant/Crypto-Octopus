@@ -21,5 +21,6 @@ py-modules = [
     "insert_batch",
     "query",
     "download_data",
-    "update"
+    "update",
+    "kchart"
 ]
