@@ -3,6 +3,7 @@ Crypto-Octopus - 使用文档
 ========================================
 
 项目目录结构：
+```
 Crypto-Octopus/
   ├── init_db.py          # 初始化数据库
   ├── init_table.py       # 创建数据表（仅 1m、1d）
@@ -12,36 +13,46 @@ Crypto-Octopus/
   ├── query.py            # 命令行查询 + 内部API
   ├── pyproject.toml      # 项目依赖
   └── data.duckdb         # 数据库（自动生成）
-
+```
 
 ========================================
 一、环境安装
 ========================================
 
 1. 创建虚拟环境
+```
 python -m venv .venv
-
+```
 2. 激活虚拟环境
 
 Windows:
+```
 .venv\Scripts\activate
+```
 
 Mac/Linux:
+```
 source .venv/bin/activate
+```
 
 3. 安装依赖（使用 pyproject.toml）
+```
 pip install -e .
-
+```
 
 ========================================
 二、数据库初始化
 ========================================
 
 1. 初始化数据库文件
+```
 python init_db.py
+```
 
 2. 创建K线表
+```
 python init_table.py
+```
 
 仅创建两张表：
   - kline_1m
@@ -203,6 +214,7 @@ python query.py -p 1h -s 2026-01-01 -n 50 -tp BTCUSDT
 支持所有周期。
 
 示例：
+```
 from query import query_kline
 
 data = query_kline(
@@ -213,8 +225,10 @@ data = query_kline(
 )
 
 klines = data["BTCUSDT"]
+```
 
 返回格式：
+```
 {
   "BTCUSDT": [
     {
@@ -226,7 +240,7 @@ klines = data["BTCUSDT"]
     }
   ]
 }
-
+```
 
 ========================================
 八、常见问题
@@ -234,21 +248,26 @@ klines = data["BTCUSDT"]
 
 1. 数据库不存在
 先运行：
+```
 python init_db.py
 python init_table.py
+```
 
-2. 插入数据失败
-把所有 ZIP + checksum 文件放在 ./data 目录，再运行 insert_batch.py ./data
+3. 插入数据失败
+把所有 ZIP + checksum 文件放在 ./data 目录，再运行
+```
+python insert_batch.py ./data
+```
 
-3. 支持哪些周期查询？
+5. 支持哪些周期查询？
 全部都支持：
 1m,3m,5m,15m,30m,1h,2h,4h,6h,8h,12h,1d,3d,1w,1mo
 
-4. 为什么只有两张表？
+6. 为什么只有两张表？
 所有周期从 1m 自动聚合，结构最简、最稳定
 
-5. 下载被币安限制？
+7. 下载被币安限制？
 download_data.py 自带 3-12 秒随机延时，请勿再额外加 sleep。
 
-6. update.py 运行报错 AttributeError: 'Namespace' object has no attribute 'trading_pairs'
+8. update.py 运行报错 AttributeError: 'Namespace' object has no attribute 'trading_pairs'
 将 update.py 中 args.trading_pairs 改为 args.trading_pair（单数）即可。
